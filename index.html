@@ -287,6 +287,10 @@ const CONFIG = {
   // Paste the Apps Script web app address here, the one ending in /exec
   api: 'https://script.google.com/macros/s/AKfycbyawosfBgjuLJM0d5fBIExHCN9C_ySI07HpYWYFxqbOEMWxnV5aby6joMRqfr9qlLFl/exec',
 
+  // Address where this page is published. Used by the panel labels so that
+  // scanning one opens the scoring sheet with that poster already selected.
+  site: 'https://geneusp.github.io/wmim/',
+
   posters: 30,
   password: 'committee',
   askComment: true,
@@ -402,7 +406,8 @@ function setupWarning(){
   document.querySelector('header').after(w);
 }
 
-let ME=null, MINE={}, MAP={}, BASE=LS.get('baseurl','');
+function normalise(u){ u=(u||'').trim().replace(/[?#].*$/,''); return u && !/\/$/.test(u) ? u+'/' : u; }
+let ME=null, MINE={}, MAP={}, BASE=normalise(LS.get('baseurl','') || CONFIG.site);
 
 /* ---------- tabs ---------- */
 document.querySelectorAll('.tab').forEach(b=>{
@@ -701,7 +706,7 @@ el('btnMakeQr').onclick = ()=>{
 };
 
 el('btnSaveUrl').onclick = ()=>{
-  BASE = cleanBase(el('baseUrl').value);
+  BASE = normalise(el('baseUrl').value);
   LS.set('baseurl', BASE);
   el('urlStatus').innerHTML='<div class="msg">Address saved on this computer. Panel labels now encode direct links.</div>';
   makeLabels();
@@ -717,7 +722,7 @@ function makeLabels(){
     const t=document.createElement('div');
     t.innerHTML='<div class="short">'+c+'</div><div class="seq">poster '+String(i+1).padStart(3,'0')+'</div>';
     cell.appendChild(t); grid.appendChild(cell);
-    drawQr(q, BASE ? BASE+'?p='+c : c, 112, 'H');
+    drawQr(q, BASE ? BASE+'?p='+c : c, 112, 'H');  // BASE already ends in /
   });
 }
 el('btnMake').onclick = makeLabels;
