@@ -1,0 +1,466 @@
+<meta charset="utf-8">
+<title>Oral presentations — Workshop in Metabolism, Inflammation &amp; the Microbiome</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --sea-pale:#E8F0EE; --ink:#0C2320; --ink-soft:#557069; --rule:#CDDCD8;
+  --teal:#0E7C6B; --teal-wash:#D5E9E3; --deep:#063B3A; --sand:#E0A62E; --coral:#A8412C; --white:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--sea-pale);color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:4rem}
+.wrap{max-width:430px;margin:0 auto;padding:0 1.1rem}
+.wrap.wide{max-width:1020px}
+
+header{background:var(--deep);color:var(--white);position:sticky;top:0;z-index:20}
+.bar{max-width:1020px;margin:0 auto;padding:.8rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.brand{font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:1.05rem;line-height:1.2;max-width:26ch}
+.brand em{font-style:normal;color:var(--sand)}
+.tabs{display:flex;gap:.15rem}
+.tab{font:inherit;font-size:.85rem;background:none;border:none;cursor:pointer;color:#8FB5AE;padding:.35rem .65rem;border-radius:3px}
+.tab[aria-selected="true"]{background:rgba(255,255,255,.14);color:var(--white);font-weight:600}
+
+section{display:none}
+section.on{display:block}
+.card{background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:1.15rem;margin-top:1.1rem}
+h2{font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:1.5rem;line-height:1.25;margin-bottom:.3rem}
+h3{font-size:.95rem;font-weight:600;margin-bottom:.4rem}
+p.note{color:var(--ink-soft);font-size:.9rem;max-width:64ch}
+label{display:block;font-size:.88rem;font-weight:500;margin-bottom:.3rem}
+input[type=text],input[type=password],textarea{width:100%;font:inherit;padding:.6rem .7rem;border:1px solid var(--rule);border-radius:4px;background:var(--white);color:var(--ink)}
+input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--teal);outline-offset:1px}
+textarea{min-height:5rem;resize:vertical}
+.btn{font:inherit;font-weight:600;font-size:1rem;width:100%;padding:.85rem 1rem;border:none;border-radius:4px;background:var(--teal);color:var(--white);cursor:pointer}
+.btn:disabled{background:var(--rule);color:var(--ink-soft);cursor:not-allowed}
+.btn.ghost{background:none;border:1px solid var(--rule);color:var(--ink);font-weight:500}
+.btn.warn{background:none;border:1px solid var(--rule);color:var(--coral);font-weight:500;font-size:.88rem;padding:.6rem}
+.inline{width:auto;padding:.55rem .9rem;font-size:.85rem}
+
+/* talk list */
+.talk{display:flex;gap:.8rem;width:100%;text-align:left;background:var(--white);border:1px solid var(--rule);
+  border-radius:6px;padding:.85rem .9rem;margin-top:.55rem;cursor:pointer;font:inherit;color:var(--ink);align-items:flex-start}
+.talk:hover{border-color:var(--teal)}
+.talk .num{font-family:'Fraunces',Georgia,serif;font-size:1.25rem;color:var(--teal);min-width:1.6rem;line-height:1.2}
+.talk .tt{font-weight:600;font-size:.95rem;line-height:1.35}
+.talk .pp{font-size:.83rem;color:var(--ink-soft);margin-top:.15rem}
+.talk .state{margin-left:auto;font-size:.75rem;font-weight:600;white-space:nowrap;padding-top:.2rem}
+.talk.done{background:var(--teal-wash);border-color:var(--teal-wash)}
+.talk.done .state{color:var(--teal)}
+.talk.skip{opacity:.65}
+.talk.skip .state{color:var(--ink-soft)}
+
+.crit{padding:.95rem 0;border-top:1px solid var(--rule)}
+.crit:first-of-type{border-top:none;padding-top:.2rem}
+.crit-name{font-size:.98rem;font-weight:600;line-height:1.3}
+.crit-desc{font-size:.82rem;color:var(--ink-soft);margin:.15rem 0 .6rem;max-width:60ch}
+.scores{display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem}
+.score{font:inherit;font-weight:600;font-size:1.05rem;aspect-ratio:1/1;min-height:52px;border:1px solid var(--rule);border-radius:4px;background:var(--white);color:var(--ink-soft);cursor:pointer;transition:background .12s,color .12s}
+.score[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:var(--white)}
+.score.filled{background:var(--teal-wash);border-color:var(--teal-wash);color:var(--teal)}
+.anchors{display:flex;justify-content:space-between;font-size:.72rem;color:var(--ink-soft);margin-top:.3rem}
+
+.msg{font-size:.86rem;padding:.7rem .8rem;border-radius:4px;background:var(--teal-wash);color:var(--deep);margin-top:.9rem}
+.msg.bad{background:#F5E1DC;color:var(--coral)}
+.done-box{background:var(--teal);color:var(--white);border-radius:8px;padding:1.2rem;margin-top:1.1rem;animation:pop .28s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+table{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:.6rem}
+th{text-align:left;font-weight:600;font-size:.76rem;color:var(--ink-soft);padding:.4rem .5rem;border-bottom:1px solid var(--rule)}
+td{padding:.5rem;border-bottom:1px solid var(--rule);vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.top td{background:var(--teal-wash)}
+.rank{font-family:'Fraunces',Georgia,serif;font-size:1.1rem}
+</style>
+
+<header>
+  <div class="bar">
+    <div class="brand">Workshop in Metabolism, Inflammation &amp; the Microbiome<br><em>Oral presentations</em></div>
+    <nav class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-go="evaluate">Evaluate</button>
+      <button class="tab" role="tab" aria-selected="false" data-go="results">Results</button>
+    </nav>
+  </div>
+</header>
+
+<section id="evaluate" class="on">
+  <div class="wrap">
+
+    <div class="card" id="cardWho" hidden>
+      <h2>Who is evaluating?</h2>
+      <p class="note">Your name stays on this device. If you already scored posters on this phone, it is filled in for you.</p>
+      <div style="margin-top:.9rem">
+        <label for="judgeName">Full name</label>
+        <input type="text" id="judgeName" autocomplete="name">
+      </div>
+      <button class="btn" id="btnStart" style="margin-top:.9rem">Start evaluating</button>
+    </div>
+
+    <div class="card" id="cardList" hidden>
+      <h2>Talks</h2>
+      <p class="note">Score each talk as it finishes. Tap a talk to open its sheet. You can go back and change a score any time before the session closes.</p>
+      <div id="list" style="margin-top:.7rem"></div>
+      <div id="progress"></div>
+    </div>
+
+    <div class="card" id="cardSheet" hidden>
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:1rem">
+        <div>
+          <div style="font-family:'Fraunces',Georgia,serif;font-size:1.35rem;line-height:1.2" id="talkTitle"></div>
+          <div class="note" id="talkWho" style="margin-top:.15rem"></div>
+        </div>
+        <button class="tab" id="btnBack" style="color:var(--ink-soft);padding:.2rem .4rem">back</button>
+      </div>
+      <div id="rubric" style="margin-top:1rem"></div>
+      <div style="margin-top:.4rem">
+        <label for="comment">Comment for the presenter (optional)</label>
+        <textarea id="comment" placeholder="What the talk does well, and what would make it stronger."></textarea>
+      </div>
+      <button class="btn" id="btnSave" style="margin-top:.9rem" disabled>Save score</button>
+      <button class="btn warn" id="btnConflict" style="margin-top:.5rem;width:100%">I have a conflict of interest with this talk</button>
+      <div id="saveStatus"></div>
+    </div>
+
+  </div>
+</section>
+
+<section id="results">
+  <div class="wrap wide">
+    <div class="card" id="cardPass">
+      <h2>Committee area</h2>
+      <p class="note">Standings are kept behind a password so evaluators don't see them during the session.</p>
+      <div style="margin-top:.9rem;max-width:300px">
+        <label for="pass">Password</label>
+        <input type="password" id="pass" autocomplete="off">
+      </div>
+      <button class="btn" id="btnPass" style="margin-top:.9rem;max-width:300px">Open results</button>
+      <div id="passError"></div>
+    </div>
+
+    <div id="panel" hidden>
+      <div class="card">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.6rem">
+          <h2>Standings</h2>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn ghost inline" id="btnRefresh">Refresh</button>
+            <button class="btn ghost inline" id="btnCsv">Download spreadsheet</button>
+          </div>
+        </div>
+        <p class="note" id="overview"></p>
+        <div id="rankTable"></div>
+      </div>
+      <div class="card">
+        <h3>How each evaluator scores</h3>
+        <div id="judgeTable"></div>
+      </div>
+      <div class="card">
+        <h3>Comments for presenters</h3>
+        <div id="commentList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ==================================================================
+   CONFIGURATION
+   ================================================================== */
+const CONFIG = {
+  // Same Apps Script address as the poster tool, ending in /exec
+  api: 'https://script.google.com/macros/s/AKfycbwmEKoR17YiqKLEYXG77dajQAvDjS2ORa0fACM6wIpVspItLyKEkrx2ehYYC-e6w5Yt/exec',
+
+  password: 'committee',
+
+  // The talks, in programme order. Edit this list.
+  talks: [
+    { n:1,  title:'Talk 1 — replace with the real title', presenter:'Presenter name' },
+    { n:2,  title:'Talk 2 — replace with the real title', presenter:'Presenter name' },
+    { n:3,  title:'Talk 3 — replace with the real title', presenter:'Presenter name' },
+    { n:4,  title:'Talk 4 — replace with the real title', presenter:'Presenter name' },
+    { n:5,  title:'Talk 5 — replace with the real title', presenter:'Presenter name' },
+    { n:6,  title:'Talk 6 — replace with the real title', presenter:'Presenter name' },
+    { n:7,  title:'Talk 7 — replace with the real title', presenter:'Presenter name' },
+    { n:8,  title:'Talk 8 — replace with the real title', presenter:'Presenter name' }
+  ],
+
+  criteria: [
+    { id:'merit',     weight:2, name:'Scientific merit and originality',
+      desc:'Relevance of the question and how much the work adds to what is already known.' },
+    { id:'method',    weight:2, name:'Methodological soundness',
+      desc:'Design, controls, sample size and statistics appropriate to the question asked.' },
+    { id:'delivery',  weight:1, name:'Clarity of the presentation',
+      desc:'Structure of the talk, legibility of the slides, and how clearly the message came across.' },
+    { id:'questions', weight:1, name:'Response to questions',
+      desc:'Command of the topic and awareness of the limitations of their own work.' }
+  ],
+  anchors: ['poor','outstanding']
+};
+
+const el = id => document.getElementById(id);
+
+const LS = {
+  get(k,d){ try{ const v=localStorage.getItem('wmim.'+k); return v==null?d:JSON.parse(v); }catch(e){ return d; } },
+  set(k,v){ try{ localStorage.setItem('wmim.'+k, JSON.stringify(v)); }catch(e){} }
+};
+
+function apiReady(){ return /^https:\/\/script\.google\.com\/.+\/exec$/.test(CONFIG.api.trim()); }
+async function apiGet(params){
+  const r = await fetch(CONFIG.api.trim()+'?'+new URLSearchParams(params).toString());
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  return r.json();
+}
+async function apiPost(body){
+  const r = await fetch(CONFIG.api.trim(), {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(body)});
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  const out = await r.json();
+  if(!out.ok) throw new Error(out.error||'rejected');
+  return out;
+}
+
+let QUEUE = LS.get('queue.talks', []);
+function badge(){
+  let b = el('syncBadge');
+  if(!QUEUE.length){ if(b) b.remove(); return; }
+  if(!b){
+    b = document.createElement('div'); b.id='syncBadge';
+    b.style.cssText='position:fixed;left:12px;bottom:12px;z-index:60;background:#A8412C;color:#fff;'+
+      'font:500 13px/1.3 "IBM Plex Sans",sans-serif;padding:.5rem .75rem;border-radius:4px;box-shadow:0 2px 10px rgba(0,0,0,.2)';
+    document.body.appendChild(b);
+  }
+  b.textContent = QUEUE.length+' score'+(QUEUE.length>1?'s':'')+' waiting to sync · tap to retry';
+  b.onclick = flush;
+}
+async function flush(){
+  if(!QUEUE.length || !apiReady()) return;
+  const still=[];
+  for(const item of QUEUE){ try{ await apiPost(item); }catch(e){ still.push(item); } }
+  QUEUE = still; LS.set('queue.talks', QUEUE); badge();
+}
+setInterval(flush, 20000);
+document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) flush(); });
+window.addEventListener('online', flush);
+
+document.querySelectorAll('.tab[data-go]').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('.tab[data-go]').forEach(x=>x.setAttribute('aria-selected', x===b));
+    document.querySelectorAll('section').forEach(s=>s.classList.toggle('on', s.id===b.dataset.go));
+    window.scrollTo(0,0);
+  };
+});
+
+let ME=null, MINE={}, active=null, scores={};
+
+(function boot(){
+  if(!apiReady()){
+    const w=document.createElement('div');
+    w.style.cssText='background:#A8412C;color:#fff;padding:.9rem 1.1rem;font-size:.9rem;line-height:1.45';
+    w.innerHTML='<strong>Not connected to the spreadsheet yet.</strong> Paste the Apps Script address into CONFIG.api.';
+    document.querySelector('header').after(w);
+  }
+  ME = LS.get('judge', null);          // shared with the poster tool on the same site
+  MINE = LS.get('mine.talks', {});
+  badge(); flush();
+  if(ME) showList(); else { el('cardWho').hidden=false; }
+})();
+
+el('btnStart').onclick = ()=>{
+  const name = el('judgeName').value.trim();
+  if(name.length<3){ el('judgeName').focus(); return; }
+  ME = { id:'j'+Date.now().toString(36)+Math.floor(Math.random()*1e4).toString(36), name };
+  LS.set('judge', ME);
+  showList();
+};
+
+function showList(){
+  el('cardWho').hidden=true; el('cardSheet').hidden=true; el('cardList').hidden=false;
+  el('list').innerHTML = CONFIG.talks.map(t=>{
+    const m = MINE[t.n];
+    const cls = m ? (m.conflict ? 'talk skip' : 'talk done') : 'talk';
+    const state = m ? (m.conflict ? 'conflict' : 'scored') : '';
+    return `<button class="${cls}" data-n="${t.n}">
+      <span class="num">${t.n}</span>
+      <span><span class="tt">${esc(t.title)}</span><span class="pp">${esc(t.presenter||'')}</span></span>
+      <span class="state">${state}</span></button>`;
+  }).join('');
+  el('list').querySelectorAll('.talk').forEach(b=> b.onclick = ()=> openSheet(Number(b.dataset.n)));
+  const n = Object.keys(MINE).length;
+  el('progress').innerHTML = `<p class="note" style="margin-top:.9rem">${n} of ${CONFIG.talks.length} recorded.</p>`;
+  window.scrollTo(0,0);
+}
+
+const esc = s => String(s).replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+
+function openSheet(n){
+  active = n;
+  const t = CONFIG.talks.find(x=>x.n===n);
+  scores = MINE[n]?.scores ? {...MINE[n].scores} : {};
+  el('talkTitle').textContent = t.title;
+  el('talkWho').textContent = t.presenter || '';
+  el('comment').value = MINE[n]?.comment || '';
+  drawRubric();
+  el('saveStatus').innerHTML = MINE[n] ? '<div class="msg">You already scored this talk. Saving again replaces your previous score.</div>' : '';
+  el('cardList').hidden=true; el('cardSheet').hidden=false;
+  window.scrollTo(0,0);
+}
+
+function drawRubric(){
+  el('rubric').innerHTML = CONFIG.criteria.map(cr=>`
+    <div class="crit">
+      <div class="crit-name">${cr.name}</div>
+      <div class="crit-desc">${cr.desc}</div>
+      <div class="scores" data-crit="${cr.id}">
+        ${[1,2,3,4,5].map(v=>`<button class="score" type="button" data-v="${v}" aria-pressed="false" aria-label="${cr.name}: ${v} out of 5">${v}</button>`).join('')}
+      </div>
+      <div class="anchors"><span>1 · ${CONFIG.anchors[0]}</span><span>5 · ${CONFIG.anchors[1]}</span></div>
+    </div>`).join('');
+  el('rubric').querySelectorAll('.score').forEach(b=>{
+    b.onclick=()=>{
+      const g=b.closest('.scores');
+      scores[g.dataset.crit]=Number(b.dataset.v);
+      paint(g, scores[g.dataset.crit]);
+      el('btnSave').disabled = CONFIG.criteria.some(c=>!scores[c.id]);
+    };
+  });
+  CONFIG.criteria.forEach(cr=>{ if(scores[cr.id]) paint(el('rubric').querySelector(`[data-crit="${cr.id}"]`), scores[cr.id]); });
+  el('btnSave').disabled = CONFIG.criteria.some(c=>!scores[c.id]);
+}
+function paint(group,val){
+  group.querySelectorAll('.score').forEach(x=>{
+    const v=Number(x.dataset.v);
+    x.setAttribute('aria-pressed', v===val);
+    x.classList.toggle('filled', v<val);
+  });
+}
+
+el('btnBack').onclick = showList;
+el('btnSave').onclick = ()=> record({scores:{...scores}, comment: el('comment').value.trim(), conflict:false});
+el('btnConflict').onclick = ()=>{
+  const t = CONFIG.talks.find(x=>x.n===active);
+  if(confirm('Declare a conflict of interest with talk '+active+'? It will receive no score from you.'))
+    record({scores:null, comment:'', conflict:true});
+};
+
+async function record(data){
+  el('btnSave').disabled = true;
+  const n = active;
+  MINE[n] = {...data, ts:Date.now()};
+  LS.set('mine.talks', MINE);
+  const payload = { action:'talk', judgeId:ME.id, judgeName:ME.name, talk:n,
+                    scores:data.scores, comment:data.comment, conflict:data.conflict };
+  try{
+    if(!apiReady()) throw new Error('not configured');
+    await apiPost(payload);
+    el('saveStatus').innerHTML = '<div class="done-box"><strong>Talk '+n+' recorded.</strong></div>';
+  }catch(e){
+    QUEUE.push(payload); LS.set('queue.talks', QUEUE); badge();
+    el('saveStatus').innerHTML = '<div class="done-box"><strong>Talk '+n+' recorded.</strong></div>'+
+      '<div class="msg bad">Saved on this phone but not sent yet. It will sync as soon as the connection is back.</div>';
+  }
+  setTimeout(showList, 1300);
+}
+
+/* ---------------- results ---------------- */
+el('btnPass').onclick = async ()=>{
+  if(el('pass').value !== CONFIG.password){ el('passError').innerHTML='<div class="msg bad">Wrong password.</div>'; return; }
+  el('cardPass').hidden=true; el('panel').hidden=false; await pull();
+};
+el('btnRefresh').onclick = ()=> pull();
+
+let CACHE=[];
+const wSum = CONFIG.criteria.reduce((s,c)=>s+c.weight,0);
+const weighted = s => CONFIG.criteria.reduce((a,c)=>a+s[c.id]*c.weight,0)/wSum;
+
+async function pull(){
+  el('overview').textContent='Loading…';
+  if(!apiReady()){
+    el('overview').textContent='';
+    el('rankTable').innerHTML='<div class="msg bad">No spreadsheet connected.</div>'; return;
+  }
+  let rows=[];
+  try{ const d = await apiGet({action:'talks'}); rows = d.rows||[]; }
+  catch(e){
+    el('overview').textContent='';
+    el('rankTable').innerHTML='<div class="msg bad">Could not reach the spreadsheet: '+e.message+'</div>'; return;
+  }
+  const byJudge={};
+  rows.forEach(r=>{
+    (byJudge[r.judgeId] ||= {id:r.judgeId, name:r.judgeName, scores:{}});
+    byJudge[r.judgeId].scores[r.talk] = {scores:r.scores, comment:r.comment, conflict:r.conflict};
+  });
+  CACHE = Object.values(byJudge);
+  draw(CACHE);
+}
+
+function draw(judges){
+  const stats = judges.map(j=>{
+    const tot = Object.values(j.scores).filter(v=>!v.conflict&&v.scores).map(v=>weighted(v.scores));
+    const n=tot.length, mean=n?tot.reduce((s,x)=>s+x,0)/n:0;
+    const sd=n>1?Math.sqrt(tot.reduce((s,x)=>s+(x-mean)**2,0)/(n-1)):0;
+    return {...j,n,mean,sd};
+  });
+
+  const byTalk={};
+  stats.forEach(j=>Object.entries(j.scores).forEach(([k,v])=>{
+    if(v.conflict||!v.scores) return;
+    const t=weighted(v.scores), z=(j.sd>0&&j.n>1)?(t-j.mean)/j.sd:0;
+    (byTalk[k] ||= {talk:k, raw:[], z:[], comments:[]});
+    byTalk[k].raw.push(t); byTalk[k].z.push(z);
+    if(v.comment) byTalk[k].comments.push({name:j.name, text:v.comment});
+  }));
+
+  const mean = a => a.length? a.reduce((s,x)=>s+x,0)/a.length : 0;
+  const rows = Object.values(byTalk).map(p=>({
+    talk:p.talk, n:p.raw.length, raw:mean(p.raw), z:mean(p.z),
+    spread:p.raw.length>1?Math.max(...p.raw)-Math.min(...p.raw):0, comments:p.comments
+  })).sort((a,b)=> b.raw-a.raw || b.z-a.z);
+
+  const votes = rows.reduce((s,r)=>s+r.n,0);
+  el('overview').textContent = `${votes} scores · ${rows.length} of ${CONFIG.talks.length} talks scored · ${stats.length} evaluators`;
+
+  const title = n => (CONFIG.talks.find(t=>String(t.n)===String(n))||{}).title || '';
+  const who   = n => (CONFIG.talks.find(t=>String(t.n)===String(n))||{}).presenter || '';
+
+  el('rankTable').innerHTML = rows.length? `<table>
+    <tr><th class="n">#</th><th class="n">Talk</th><th>Presentation</th><th class="n">Scores</th><th class="n">Mean</th><th class="n">Adjusted</th><th class="n">Spread</th></tr>
+    ${rows.map((r,i)=>`<tr class="${i<3?'top':''}">
+      <td class="n rank">${i+1}</td><td class="n">${r.talk}</td>
+      <td>${esc(title(r.talk))}<span style="color:var(--ink-soft)">${who(r.talk)?' · '+esc(who(r.talk)):''}</span></td>
+      <td class="n">${r.n}</td>
+      <td class="n"><strong>${r.raw.toFixed(2)}</strong></td>
+      <td class="n">${r.z>=0?'+':''}${r.z.toFixed(2)}</td>
+      <td class="n" style="color:${r.spread>=1.5?'var(--coral)':'inherit'}">${r.spread.toFixed(2)}</td>
+    </tr>`).join('')}
+  </table>
+  <p class="note" style="margin-top:.7rem">Because every judge scores every talk, the plain mean is already fair. The adjusted column is there as a check: if it reorders the top places, the judges disagree more than the mean suggests.</p>`
+  : '<div class="msg">No scores yet.</div>';
+
+  el('judgeTable').innerHTML = stats.length? `<table>
+    <tr><th>Evaluator</th><th class="n">Talks</th><th class="n">Mean</th><th class="n">SD</th></tr>
+    ${stats.sort((a,b)=>b.n-a.n).map(j=>`<tr><td>${esc(j.name)}</td><td class="n">${j.n}</td>
+      <td class="n">${j.n?j.mean.toFixed(2):'—'}</td><td class="n">${j.n>1?j.sd.toFixed(2):'—'}</td></tr>`).join('')}
+  </table>` : '<div class="msg">Nobody has scored yet.</div>';
+
+  const cs = rows.flatMap(r=>r.comments.map(c=>({talk:r.talk, ...c})));
+  el('commentList').innerHTML = cs.length? cs.map(c=>
+    `<div style="padding:.6rem 0;border-top:1px solid var(--rule)">
+      <strong>Talk ${c.talk}</strong> <span style="color:var(--ink-soft);font-size:.85rem">· ${esc(c.name)}</span>
+      <div style="margin-top:.2rem">${esc(c.text)}</div></div>`).join('')
+    : '<p class="note">No comments yet.</p>';
+}
+
+el('btnCsv').onclick = ()=>{
+  const out=[['talk','title','presenter','evaluator',...CONFIG.criteria.map(c=>c.id),'weighted_total','comment']];
+  CACHE.forEach(j=>Object.entries(j.scores).forEach(([n,v])=>{
+    if(v.conflict||!v.scores) return;
+    const t = CONFIG.talks.find(x=>String(x.n)===String(n))||{};
+    out.push([n, t.title||'', t.presenter||'', j.name,
+      ...CONFIG.criteria.map(c=>v.scores[c.id]), weighted(v.scores).toFixed(3), (v.comment||'').replace(/[\n;]/g,' ')]);
+  }));
+  const csv=out.map(l=>l.map(x=>`"${String(x).replace(/"/g,'""')}"`).join(';')).join('\n');
+  const url=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));
+  const a=document.createElement('a'); a.href=url; a.download='talk-scores.csv'; a.click(); URL.revokeObjectURL(url);
+};
+</script>
