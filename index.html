@@ -102,8 +102,13 @@ tr.top td{background:var(--teal-wash)}
   header,.noprint{display:none!important}
   .card{border:none;padding:0;margin:0}
   .wrap{max-width:none;padding:0}
-  .labels{grid-template-columns:repeat(4,1fr);gap:.4rem}
-  .label{border:1px dashed #999}
+  /* one label per poster, 10 x 8cm, so it's legible from a short distance on the panel */
+  .labels{grid-template-columns:repeat(2,10cm);grid-auto-rows:8cm;gap:0;justify-content:start}
+  .label{width:10cm;height:8cm;border:1px dashed #999;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;padding:.5cm;box-sizing:border-box}
+  .label canvas,.label img{max-width:6.2cm!important;width:6.2cm!important;height:6.2cm!important}
+  .label .short{font-size:2.3rem;margin-top:.3cm}
+  .label .seq{font-size:.85rem}
 }
 </style>
 
@@ -113,7 +118,6 @@ tr.top td{background:var(--teal-wash)}
     <nav class="tabs" role="tablist">
       <button class="tab" role="tab" aria-selected="true" data-go="evaluate">Evaluate</button>
       <button class="tab" role="tab" aria-selected="false" data-go="results">Results</button>
-      <button class="tab" role="tab" aria-selected="false" data-go="print">Print</button>
     </nav>
   </div>
 </header>
@@ -236,6 +240,12 @@ tr.top td{background:var(--teal-wash)}
         <h3>Comments for presenters</h3>
         <div id="commentList"></div>
       </div>
+
+      <div class="card">
+        <h3>Poster labels &amp; access QR</h3>
+        <p class="note">Only needed once, before the session, to generate the panel labels and the QR code that opens this tool. Evaluators don't need this.</p>
+        <button class="tab" data-go="print" style="width:auto;display:inline-block;margin-top:.6rem;background:var(--teal-wash);color:var(--deep);font-weight:600;padding:.6rem 1rem;border-radius:4px">Open label generator →</button>
+      </div>
     </div>
   </div>
 </section>
@@ -285,11 +295,7 @@ tr.top td{background:var(--teal-wash)}
    ================================================================== */
 const CONFIG = {
   // Paste the Apps Script web app address here, the one ending in /exec
-  api: 'https://script.google.com/macros/s/AKfycbyawosfBgjuLJM0d5fBIExHCN9C_ySI07HpYWYFxqbOEMWxnV5aby6joMRqfr9qlLFl/exec',
-
-  // Address where this page is published. Used by the panel labels so that
-  // scanning one opens the scoring sheet with that poster already selected.
-  site: 'https://geneusp.github.io/wmim/',
+  api: 'https://script.google.com/macros/s/AKfycbwmEKoR17YiqKLEYXG77dajQAvDjS2ORa0fACM6wIpVspItLyKEkrx2ehYYC-e6w5Yt/exec',
 
   posters: 30,
   password: 'committee',
@@ -406,8 +412,7 @@ function setupWarning(){
   document.querySelector('header').after(w);
 }
 
-function normalise(u){ u=(u||'').trim().replace(/[?#].*$/,''); return u && !/\/$/.test(u) ? u+'/' : u; }
-let ME=null, MINE={}, MAP={}, BASE=normalise(LS.get('baseurl','') || CONFIG.site);
+let ME=null, MINE={}, MAP={}, BASE=LS.get('baseurl','');
 
 /* ---------- tabs ---------- */
 document.querySelectorAll('.tab').forEach(b=>{
@@ -706,7 +711,7 @@ el('btnMakeQr').onclick = ()=>{
 };
 
 el('btnSaveUrl').onclick = ()=>{
-  BASE = normalise(el('baseUrl').value);
+  BASE = cleanBase(el('baseUrl').value);
   LS.set('baseurl', BASE);
   el('urlStatus').innerHTML='<div class="msg">Address saved on this computer. Panel labels now encode direct links.</div>';
   makeLabels();
@@ -722,7 +727,8 @@ function makeLabels(){
     const t=document.createElement('div');
     t.innerHTML='<div class="short">'+c+'</div><div class="seq">poster '+String(i+1).padStart(3,'0')+'</div>';
     cell.appendChild(t); grid.appendChild(cell);
-    drawQr(q, BASE ? BASE+'?p='+c : c, 112, 'H');  // BASE already ends in /
+    // 600px source so the code stays crisp printed at 6.2cm (the label itself prints at 10x8cm)
+    drawQr(q, BASE ? BASE+'?p='+c : c, 600, 'H');
   });
 }
 el('btnMake').onclick = makeLabels;
