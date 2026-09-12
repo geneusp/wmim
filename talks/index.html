@@ -44,8 +44,8 @@ textarea{min-height:5rem;resize:vertical}
   border-radius:6px;padding:.85rem .9rem;margin-top:.55rem;cursor:pointer;font:inherit;color:var(--ink);align-items:flex-start}
 .talk:hover{border-color:var(--teal)}
 .talk .num{font-family:'Fraunces',Georgia,serif;font-size:1.25rem;color:var(--teal);min-width:1.6rem;line-height:1.2}
-.talk .tt{font-weight:600;font-size:.95rem;line-height:1.35}
-.talk .pp{font-size:.83rem;color:var(--ink-soft);margin-top:.15rem}
+.talk .tt{display:block;font-weight:600;font-size:.95rem;line-height:1.35}
+.talk .pp{display:block;font-size:.83rem;color:var(--ink-soft);margin-top:.15rem}
 .talk .state{margin-left:auto;font-size:.75rem;font-weight:600;white-space:nowrap;padding-top:.2rem}
 .talk.done{background:var(--teal-wash);border-color:var(--teal-wash)}
 .talk.done .state{color:var(--teal)}
@@ -175,19 +175,20 @@ const CONFIG = {
   password: 'committee',
 
   // The talks, in programme order. Edit this list.
-  // Titles are still pending — each presenter submitted an abstract file (not a typed title),
-  // see the links in the comment below. Replace 'Título a confirmar' once titles are in hand.
+  // Titles are unknown for now, so the list shows presenters only. Leave title:'' and the
+  // presenter's name stands in for it; type a title in and it takes over automatically,
+  // with the presenter shown underneath. Abstract files are linked below.
   talks: [
-    { n:1,  title:'Título a confirmar', presenter:'Guilherme William da Silva' },
-    { n:2,  title:'Título a confirmar', presenter:'Bernardo de Castro Oliveira' },
-    { n:3,  title:'Título a confirmar', presenter:'Marcelo Rodrigues Berçot' },
-    { n:4,  title:'Título a confirmar', presenter:'Helder Carvalho de Assis (com Marco)' },
-    { n:5,  title:'Título a confirmar', presenter:'Juan Miranda Peixoto' },
-    { n:6,  title:'Título a confirmar', presenter:'Vinicius Mendes Vidal' },
-    { n:7,  title:'Título a confirmar', presenter:'Mariane Font Fernandes (com Patrick)' },
-    { n:8,  title:'Título a confirmar', presenter:'Cecilia Horta Ramalho Pinto' },
-    { n:9,  title:'Título a confirmar', presenter:'Larissa Rodrigues' },
-    { n:10, title:'Título a confirmar', presenter:'Caroline Marcantonio Ferreira' }
+    { n:1,  title:'', presenter:'Guilherme William da Silva' },
+    { n:2,  title:'', presenter:'Bernardo de Castro Oliveira' },
+    { n:3,  title:'', presenter:'Marcelo Rodrigues Berçot' },
+    { n:4,  title:'', presenter:'Helder Carvalho de Assis (com Marco)' },
+    { n:5,  title:'', presenter:'Juan Miranda Peixoto' },
+    { n:6,  title:'', presenter:'Vinicius Mendes Vidal' },
+    { n:7,  title:'', presenter:'Mariane Font Fernandes (com Patrick)' },
+    { n:8,  title:'', presenter:'Cecilia Horta Ramalho Pinto' },
+    { n:9,  title:'', presenter:'Larissa Rodrigues' },
+    { n:10, title:'', presenter:'Caroline Marcantonio Ferreira' }
   ],
   // Abstract files submitted by each presenter (from the registration spreadsheet),
   // for whoever fills in the titles above:
@@ -216,6 +217,17 @@ const CONFIG = {
 };
 
 const el = id => document.getElementById(id);
+
+/* Declared up here on purpose: boot() below calls showList(), which uses esc().
+   Left further down, it is still in the temporal dead zone when boot() runs for a
+   judge whose name is already saved, and the whole script dies on the spot. */
+const esc = s => String(s).replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+
+/* What a talk is called on screen. While the titles are unknown the presenter's name stands
+   in for the title; fill in a title in CONFIG.talks and it takes over on its own, with the
+   presenter shown underneath. */
+const talkLabel = t => (t && (t.title || t.presenter)) || ('Talk ' + (t ? t.n : ''));
+const talkSub   = t => (t && t.title && t.presenter) ? t.presenter : '';
 
 const LS = {
   get(k,d){ try{ const v=localStorage.getItem('wmim.'+k); return v==null?d:JSON.parse(v); }catch(e){ return d; } },
@@ -298,7 +310,7 @@ function showList(){
     const state = m ? (m.conflict ? 'conflict' : 'scored') : '';
     return `<button class="${cls}" data-n="${t.n}">
       <span class="num">${t.n}</span>
-      <span><span class="tt">${esc(t.title)}</span><span class="pp">${esc(t.presenter||'')}</span></span>
+      <span><span class="tt">${esc(talkLabel(t))}</span>${talkSub(t)?`<span class="pp">${esc(talkSub(t))}</span>`:''}</span>
       <span class="state">${state}</span></button>`;
   }).join('');
   el('list').querySelectorAll('.talk').forEach(b=> b.onclick = ()=> openSheet(Number(b.dataset.n)));
@@ -307,14 +319,12 @@ function showList(){
   window.scrollTo(0,0);
 }
 
-const esc = s => String(s).replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
-
 function openSheet(n){
   active = n;
   const t = CONFIG.talks.find(x=>x.n===n);
   scores = MINE[n]?.scores ? {...MINE[n].scores} : {};
-  el('talkTitle').textContent = t.title;
-  el('talkWho').textContent = t.presenter || '';
+  el('talkTitle').textContent = talkLabel(t);
+  el('talkWho').textContent = talkSub(t);
   el('comment').value = MINE[n]?.comment || '';
   drawRubric();
   el('saveStatus').innerHTML = MINE[n] ? '<div class="msg">You already scored this talk. Saving again replaces your previous score.</div>' : '';
@@ -436,8 +446,9 @@ function draw(judges){
   const votes = rows.reduce((s,r)=>s+r.n,0);
   el('overview').textContent = `${votes} scores · ${rows.length} of ${CONFIG.talks.length} talks scored · ${stats.length} evaluators`;
 
-  const title = n => (CONFIG.talks.find(t=>String(t.n)===String(n))||{}).title || '';
-  const who   = n => (CONFIG.talks.find(t=>String(t.n)===String(n))||{}).presenter || '';
+  const talkOf = n => CONFIG.talks.find(t=>String(t.n)===String(n)) || {};
+  const title = n => talkLabel(talkOf(n));
+  const who   = n => talkSub(talkOf(n));
 
   el('rankTable').innerHTML = rows.length? `<table>
     <tr><th class="n">#</th><th class="n">Talk</th><th>Presentation</th><th class="n">Scores</th><th class="n">Mean</th><th class="n">Adjusted</th><th class="n">Spread</th></tr>
