@@ -90,6 +90,7 @@ tr.top td{background:var(--teal-wash)}
 .rank{font-family:'Fraunces',Georgia,serif;font-size:1.1rem}
 
 .labels{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.6rem;margin-top:1rem}
+.label-page{display:contents}
 .label{border:1px dashed var(--ink-soft);border-radius:6px;padding:.7rem;text-align:center;background:var(--white);break-inside:avoid}
 .label canvas,.label img{width:100%!important;height:auto!important;max-width:112px;margin:0 auto}
 .label .short{font-family:'IBM Plex Mono',monospace;font-size:1.5rem;font-weight:600;letter-spacing:.1em;margin-top:.35rem}
@@ -99,17 +100,24 @@ tr.top td{background:var(--teal-wash)}
 
 @media print{
   body{background:#fff;padding:0}
-  header,.noprint{display:none!important}
+  header,.noprint,.shore{display:none!important}
   .card{border:none;padding:0;margin:0}
   .wrap{max-width:none;padding:0}
-  /* one label per poster, 10 x 8cm, so it's legible from a short distance on the panel */
-  .labels{grid-template-columns:repeat(2,10cm);grid-auto-rows:8cm;gap:0;justify-content:start}
+  /* one label per poster, 10 x 8cm, so it's legible from a short distance on the panel.
+     Labels are grouped into fixed pages of 6 (grid-template-columns below x 3 rows) with a
+     forced break between groups — letting the browser paginate one long grid on its own
+     tends to slice a row in half across the page boundary. */
+  .labels{display:block}
+  .label-page{display:grid;grid-template-columns:repeat(2,10cm);grid-auto-rows:8cm;gap:0;
+    justify-content:start;break-after:page;page-break-after:always}
+  .label-page:last-child{break-after:auto;page-break-after:auto}
   .label{width:10cm;height:8cm;border:1px dashed #999;display:flex;flex-direction:column;
-    align-items:center;justify-content:center;padding:.5cm;box-sizing:border-box}
+    align-items:center;justify-content:center;padding:.5cm;box-sizing:border-box;break-inside:avoid}
   .label canvas,.label img{max-width:6.2cm!important;width:6.2cm!important;height:6.2cm!important}
   .label .short{font-size:2.3rem;margin-top:.3cm}
   .label .seq{font-size:.85rem}
 }
+@page{ size:A4; margin:1cm; }
 </style>
 
 <header>
@@ -312,6 +320,8 @@ const CONFIG = {
   ],
   anchors: ['poor','outstanding']
 };
+
+const LABELS_PER_PAGE = 6; // 2 columns x 3 rows at 10x8cm each, one A4 page
 
 /* draws a QR safely: the library comes from a CDN and may be blocked */
 function drawQr(box, text, size, level){
@@ -721,12 +731,16 @@ function makeLabels(){
   const n = Math.max(1, Math.min(300, parseInt(el('labelCount').value)||CONFIG.posters));
   CONFIG.posters = n; CODES = makeCodes(n);
   const grid = el('labelGrid'); grid.innerHTML='';
+  let page=null;
   CODES.forEach((c,i)=>{
+    if(i % LABELS_PER_PAGE === 0){
+      page = document.createElement('div'); page.className='label-page'; grid.appendChild(page);
+    }
     const cell=document.createElement('div'); cell.className='label';
     const q=document.createElement('div'); cell.appendChild(q);
     const t=document.createElement('div');
     t.innerHTML='<div class="short">'+c+'</div><div class="seq">poster '+String(i+1).padStart(3,'0')+'</div>';
-    cell.appendChild(t); grid.appendChild(cell);
+    cell.appendChild(t); page.appendChild(cell);
     // 600px source so the code stays crisp printed at 6.2cm (the label itself prints at 10x8cm)
     drawQr(q, BASE ? BASE+'?p='+c : c, 600, 'H');
   });
