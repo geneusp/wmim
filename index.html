@@ -108,8 +108,9 @@ tr.top td{background:var(--teal-wash)}
      forced break between groups — letting the browser paginate one long grid on its own
      tends to slice a row in half across the page boundary. */
   .labels{display:block}
-  .label-page{display:grid;grid-template-columns:repeat(2,10cm);grid-auto-rows:8cm;gap:0;
-    justify-content:start;break-after:page;page-break-after:always}
+  .label-page{display:grid;grid-template-columns:repeat(2,10cm);grid-template-rows:repeat(3,8cm);
+    height:24cm;gap:0;justify-content:start;align-content:start;overflow:hidden;
+    break-after:page;page-break-after:always;break-inside:avoid;page-break-inside:avoid}
   .label-page:last-child{break-after:auto;page-break-after:auto}
   .label{width:10cm;height:8cm;border:1px dashed #999;display:flex;flex-direction:column;
     align-items:center;justify-content:center;padding:.5cm;box-sizing:border-box;break-inside:avoid}
@@ -168,7 +169,7 @@ tr.top td{background:var(--teal-wash)}
       <p class="note">Your name stays on this device. You type it once, at the start of the session.</p>
       <div style="margin-top:.9rem">
         <label for="judgeName">Full name</label>
-        <input type="text" id="judgeName" autocomplete="name" placeholder="e.g. Larissa Bueno">
+        <input type="text" id="judgeName" autocomplete="name" placeholder="e.g. Mito Chondria">
       </div>
       <button class="btn" id="btnStart" style="margin-top:.9rem">Start evaluating</button>
     </div>
@@ -289,7 +290,9 @@ tr.top td{background:var(--teal-wash)}
         <button class="btn ghost inline" id="btnMake">Generate</button>
         <button class="btn ghost inline" id="btnPrint">Print</button>
       </div>
-      <div class="msg">Codes are always the same for the same number of posters, so a reprint stays valid.</div>
+      <div class="msg">Codes are always the same for the same number of posters, so a reprint stays valid.
+        Each printed sheet holds 6 labels, 10 x 8cm each, with cut lines between them.</div>
+      <p class="note" style="margin-top:.5rem;font-size:.78rem">Label layout v2 — if this line is missing, the page is an older copy: reload with Ctrl+Shift+R (Cmd+Shift+R on a Mac).</p>
     </div>
 
     <div class="labels" id="labelGrid"></div>
@@ -416,6 +419,7 @@ window.addEventListener('online', flush);
    ================================================================== */
 function setupWarning(){
   const w = document.createElement('div');
+  w.className='noprint';   // keep it off the printed label sheets
   w.style.cssText='background:#A8412C;color:#fff;padding:.9rem 1.1rem;font-size:.9rem;line-height:1.45';
   w.innerHTML='<strong>Not connected to the spreadsheet yet.</strong> '+
     'Scores cannot be saved until the Apps Script address is pasted into CONFIG.api in index.html.';
@@ -423,6 +427,11 @@ function setupWarning(){
 }
 
 let ME=null, MINE={}, MAP={}, BASE=LS.get('baseurl','');
+
+/* Declared up here on purpose: boot() below calls openSheet() when someone arrives from a
+   poster QR code (?p=CODE), and openSheet() writes to these. Left further down, they are
+   still in the temporal dead zone at that moment and the scoring sheet never opens. */
+let active=null, scores={};
 
 /* ---------- tabs ---------- */
 document.querySelectorAll('.tab').forEach(b=>{
@@ -485,8 +494,6 @@ el('codeInput').addEventListener('input', e=>{
   if(e.target.value.length===4) openSheet();
 });
 el('btnOpen').onclick = openSheet;
-
-let active=null, scores={};
 
 function openSheet(){
   const c = el('codeInput').value.trim().toUpperCase();
