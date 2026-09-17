@@ -1,14 +1,16 @@
 [
 {
-"name": "Alessandro dos Santos Fariaas",
+"name": "Alessandro dos Santos Farias",
 "files": {
-"attendance": "Alessandro-dos-Santos-Fariaas-attendance.pdf"
+"attendance": "Alessandro-dos-Santos-Farias-attendance.pdf",
+"speaker": "Alessandro-dos-Santos-Farias-speaker.pdf"
 }
 },
 {
 "name": "Aline Rezende Ribeiro de Abreu",
 "files": {
-"attendance": "Aline-Rezende-Ribeiro-de-Abreu-attendance.pdf"
+"attendance": "Aline-Rezende-Ribeiro-de-Abreu-attendance.pdf",
+"speaker": "Aline-Rezende-Ribeiro-de-Abreu-speaker.pdf"
 }
 },
 {
@@ -28,13 +30,15 @@
 {
 "name": "Ana Maria Caetano Faria",
 "files": {
-"attendance": "Ana-Maria-Caetano-Faria-attendance.pdf"
+"attendance": "Ana-Maria-Caetano-Faria-attendance.pdf",
+"speaker": "Ana-Maria-Caetano-Faria-speaker.pdf"
 }
 },
 {
 "name": "Ana Paula Duarte de Souza",
 "files": {
-"attendance": "Ana-Paula-Duarte-de-Souza-attendance.pdf"
+"attendance": "Ana-Paula-Duarte-de-Souza-attendance.pdf",
+"speaker": "Ana-Paula-Duarte-de-Souza-speaker.pdf"
 }
 },
 {
@@ -81,13 +85,15 @@
 {
 "name": "Carla Taddei",
 "files": {
-"attendance": "Carla-Taddei-attendance.pdf"
+"attendance": "Carla-Taddei-attendance.pdf",
+"speaker": "Carla-Taddei-speaker.pdf"
 }
 },
 {
 "name": "Caroline Marcantonio Ferreira",
 "files": {
-"attendance": "Caroline-Marcantonio-Ferreira-attendance.pdf"
+"attendance": "Caroline-Marcantonio-Ferreira-attendance.pdf",
+"speaker": "Caroline-Marcantonio-Ferreira-speaker.pdf"
 }
 },
 {
@@ -101,7 +107,8 @@
 {
 "name": "Cristhiane Favero de Aguiar",
 "files": {
-"attendance": "Cristhiane-Favero-de-Aguiar-attendance.pdf"
+"attendance": "Cristhiane-Favero-de-Aguiar-attendance.pdf",
+"speaker": "Cristhiane-Favero-de-Aguiar-speaker.pdf"
 }
 },
 {
@@ -111,10 +118,31 @@
 }
 },
 {
+"name": "Denise Morais da Fonseca",
+"files": {
+"attendance": "Denise-Morais-da-Fonseca-attendance.pdf",
+"speaker": "Denise-Morais-da-Fonseca-speaker.pdf"
+}
+},
+{
+"name": "Eduardo Villablanca",
+"files": {
+"attendance": "Eduardo-Villablanca-attendance.pdf",
+"speaker": "Eduardo-Villablanca-speaker.pdf"
+}
+},
+{
 "name": "Evandro Neves Silva",
 "files": {
 "attendance": "Evandro-Neves-Silva-attendance.pdf",
 "poster": "Evandro-Neves-Silva-poster.pdf"
+}
+},
+{
+"name": "François Leulier",
+"files": {
+"attendance": "Francois-Leulier-attendance.pdf",
+"speaker": "Francois-Leulier-speaker.pdf"
 }
 },
 {
@@ -142,19 +170,28 @@
 {
 "name": "Hosana Gomes Rodrigues",
 "files": {
-"attendance": "Hosana-Gomes-Rodrigues-attendance.pdf"
+"attendance": "Hosana-Gomes-Rodrigues-attendance.pdf",
+"speaker": "Hosana-Gomes-Rodrigues-speaker.pdf"
 }
 },
 {
 "name": "Jarlei Fiamoncini",
 "files": {
-"attendance": "Jarlei-Fiamoncini-attendance.pdf"
+"attendance": "Jarlei-Fiamoncini-attendance.pdf",
+"speaker": "Jarlei-Fiamoncini-speaker.pdf"
 }
 },
 {
 "name": "José Carlos Alve Filho",
 "files": {
 "attendance": "Jose-Carlos-Alve-Filho-attendance.pdf"
+}
+},
+{
+"name": "José Carlos Alves-Filho",
+"files": {
+"attendance": "Jose-Carlos-Alves-Filho-attendance.pdf",
+"speaker": "Jose-Carlos-Alves-Filho-speaker.pdf"
 }
 },
 {
@@ -172,6 +209,13 @@
 }
 },
 {
+"name": "Karsten Hiller",
+"files": {
+"attendance": "Karsten-Hiller-attendance.pdf",
+"speaker": "Karsten-Hiller-speaker.pdf"
+}
+},
+{
 "name": "Kétlin Fernanda Rodrigues",
 "files": {
 "attendance": "Ketlin-Fernanda-Rodrigues-attendance.pdf"
@@ -180,7 +224,8 @@
 {
 "name": "Krist Antunes Fernandes",
 "files": {
-"attendance": "Krist-Antunes-Fernandes-attendance.pdf"
+"attendance": "Krist-Antunes-Fernandes-attendance.pdf",
+"speaker": "Krist-Antunes-Fernandes-speaker.pdf"
 }
 },
 {
@@ -199,9 +244,10 @@
 }
 },
 {
-"name": "Leandro Pires Araujo",
+"name": "Leandro Pires Araújo",
 "files": {
-"attendance": "Leandro-Pires-Araujo-attendance.pdf"
+"attendance": "Leandro-Pires-Araujo-attendance.pdf",
+"speaker": "Leandro-Pires-Araujo-speaker.pdf"
 }
 },
 {
@@ -213,13 +259,15 @@
 {
 "name": "Lívia Hecke Morais",
 "files": {
-"attendance": "Livia-Hecke-Morais-attendance.pdf"
+"attendance": "Livia-Hecke-Morais-attendance.pdf",
+"speaker": "Livia-Hecke-Morais-speaker.pdf"
 }
 },
 {
 "name": "Marcelo A. Mori",
 "files": {
-"attendance": "Marcelo-A-Mori-attendance.pdf"
+"attendance": "Marcelo-A-Mori-attendance.pdf",
+"speaker": "Marcelo-A-Mori-speaker.pdf"
 }
 },
 {
@@ -227,6 +275,20 @@
 "files": {
 "attendance": "Marcelo-Rodrigues-Bercot-attendance.pdf",
 "oral": "Marcelo-Rodrigues-Bercot-oral.pdf"
+}
+},
+{
+"name": "Marco Aurélio Ramirez Vinolo",
+"files": {
+"attendance": "Marco-Aurelio-Ramirez-Vinolo-attendance.pdf",
+"speaker": "Marco-Aurelio-Ramirez-Vinolo-speaker.pdf"
+}
+},
+{
+"name": "Mariana Byndloss",
+"files": {
+"attendance": "Mariana-Byndloss-attendance.pdf",
+"speaker": "Mariana-Byndloss-speaker.pdf"
 }
 },
 {
@@ -250,19 +312,22 @@
 {
 "name": "Naiara Beraza",
 "files": {
-"attendance": "Naiara-Beraza-attendance.pdf"
+"attendance": "Naiara-Beraza-attendance.pdf",
+"speaker": "Naiara-Beraza-speaker.pdf"
 }
 },
 {
 "name": "Patrick Varga-Weisz",
 "files": {
-"attendance": "Patrick-Varga-Weisz-attendance.pdf"
+"attendance": "Patrick-Varga-Weisz-attendance.pdf",
+"speaker": "Patrick-Varga-Weisz-speaker.pdf"
 }
 },
 {
-"name": "Pedro M Moraes Vieira",
+"name": "Pedro Manoel Mendes de Moraes Vieira",
 "files": {
-"attendance": "Pedro-M-Moraes-Vieira-attendance.pdf"
+"attendance": "Pedro-Manoel-Mendes-de-Moraes-Vieira-attendance.pdf",
+"speaker": "Pedro-Manoel-Mendes-de-Moraes-Vieira-speaker.pdf"
 }
 },
 {
@@ -275,7 +340,8 @@
 {
 "name": "Raphael Sanches Peres",
 "files": {
-"attendance": "Raphael-Sanches-Peres-attendance.pdf"
+"attendance": "Raphael-Sanches-Peres-attendance.pdf",
+"speaker": "Raphael-Sanches-Peres-speaker.pdf"
 }
 },
 {
@@ -287,7 +353,8 @@
 {
 "name": "Renata Sesti Costa",
 "files": {
-"attendance": "Renata-Sesti-Costa-attendance.pdf"
+"attendance": "Renata-Sesti-Costa-attendance.pdf",
+"speaker": "Renata-Sesti-Costa-speaker.pdf"
 }
 },
 {
@@ -324,6 +391,13 @@
 }
 },
 {
+"name": "Tamas Korcsmaros",
+"files": {
+"attendance": "Tamas-Korcsmaros-attendance.pdf",
+"speaker": "Tamas-Korcsmaros-speaker.pdf"
+}
+},
+{
 "name": "Vanessa de Souza",
 "files": {
 "attendance": "Vanessa-de-Souza-attendance.pdf",
@@ -341,7 +415,8 @@
 {
 "name": "Vitor Rosetto Muñoz",
 "files": {
-"attendance": "Vitor-Rosetto-Munoz-attendance.pdf"
+"attendance": "Vitor-Rosetto-Munoz-attendance.pdf",
+"speaker": "Vitor-Rosetto-Munoz-speaker.pdf"
 }
 },
 {
